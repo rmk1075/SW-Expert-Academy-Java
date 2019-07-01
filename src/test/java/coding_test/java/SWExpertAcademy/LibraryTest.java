@@ -3,8 +3,9 @@
  */
 package coding_test.java.SWExpertAcademy;
 
-import org.junit.Test;
 import static org.junit.Assert.*;
+
+import org.junit.Test;
 
 public class LibraryTest {
     @Test public void testSomeLibraryMethod() {
