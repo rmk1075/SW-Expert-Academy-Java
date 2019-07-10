@@ -33,13 +33,9 @@ public class Solution {
 					if(arr[r].charAt(c) == '@') end = true;
 				}
 			}
-			
-			int memory = 0;
-			int x = 0;
-			int y = 0;
-			int direction = 1;
 	        
-			if(end) result = run(memory, x, y, direction);
+			//it has exit character '@'
+			if(end) result = run(0, 0, 0, 1);
 			
 			System.out.println("#" + (i+1) + " " + result);
 		}
@@ -47,22 +43,21 @@ public class Solution {
 		sc.close();
 	}
 
-	public static String run(int mem, int x_, int y_, int di) {
-		int memory = mem;
-		int x = x_;
-		int y = y_;
-		int direction = di;
+	public static String run(int memory, int x, int y, int direction) {
+
+		//System.out.println(x + " " + y + " " + arr[x].charAt(y) + " " + memory + " " +memHistory[x][y][direction][memory]);
 		
+		//exit
 		if(arr[x].charAt(y) == '@') {
 			return "YES";
 		}
 		
-		//System.out.println(x + " " + y + " " + arr[x].charAt(y) + " " + memory + " " +memHistory[x][y][direction][memory]);
-		
+		//already visit
 		if(memHistory[x][y][direction][memory]) {
             return "NO";
         }
 		
+		//char is ?
 		if(arr[x].charAt(y) == '?') {
 			String[] q = new String[4];
 			
@@ -83,6 +78,8 @@ public class Solution {
 			return "NO";
 		}
 		
+		memHistory[x][y][direction][memory] = true;
+		
 		switch(arr[x].charAt(y)) {
 		case '<': direction = 0; break;
 		case '>': direction = 1; break;
@@ -96,11 +93,9 @@ public class Solution {
 		case '5':case '6':case '7':case '8':case '9': memory = arr[x].charAt(y)-'0'; break;
 		}
 		
-		if(memory < 0) memory += 15;
-		if(15 < memory) memory = 15 - memory;
-	
-		memHistory[x][y][direction][memory] = true;
-				
+		if(memory < 0) memory += 16;
+		if(15 < memory) memory = 16 - memory;
+					
 		switch (direction) {
 			case 0:
 				y--;
@@ -120,8 +115,8 @@ public class Solution {
 				break;
 		}
 		
-		run(memory, x, y, direction);
+		String result = run(memory, x, y, direction);
 		
-		return "YES";
+		return result;
 	}
 }
