@@ -1,11 +1,12 @@
 package coding_test.java.SWExpertAcademy.problem3752;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Solution {
 
-	ArrayList<Integer> scores = new ArrayList();
+	static boolean arr[];
+	static int T;
+	static int N;
 	
 	public static void main(String[] args) {
 		/*
@@ -16,34 +17,35 @@ public class Solution {
 	
 		Scanner sc = new Scanner(System.in);
 		
-		int T = sc.nextInt();
+		T = sc.nextInt();
 		
+		//each test case
 		for(int i = 0; i < T; i++) {
-			run(sc, i);
+			int result = 0;
+			
+			arr = new boolean[10001];
+			arr[0] = true;
+			
+			N = sc.nextInt(); //number of problems
+			
+			int sum = 0;
+			//point of each problem
+			for(int j = 0; j < N; j++) {
+				int temp = sc.nextInt();
+				sum += temp;
+
+				for(int k = sum; k >= 0; k--) {
+					if(arr[k]) {
+						arr[k+temp] = true;
+					}
+				}
+			}
+			
+			for (boolean b : arr) {
+				if(b) result++;
+			}
+			
+			System.out.println("#" + (i+1) + " " + result);
 		}
-		
-	}
-	
-	public static void run(Scanner sc, int testCase) {
-		int N = sc.nextInt();
-		int arr[] = new int[N];
-		
-		for(int i = 0; i < N; i++) {
-			arr[i] = sc.nextInt();
-		}
-		
-		for(int i = 1; i < N; i++) {
-			//find(arr, i);
-		}
-		
-		//arraylist <- put in the sum value of each case / compare with the .contain(...)
-		//finally take the length of arraylist
-	}
-	
-	//this method should be changed as void type and append the value to the arraylist point when if the list being class variable
-	public static void find(int[] arr, int i) {
-		if(i == 0) return;
-		
-		return ;
 	}
 }
