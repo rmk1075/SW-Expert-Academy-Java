@@ -21,3 +21,11 @@ SWEA problem src code
 1824. 혁진이의 프로그램 검 [D4]
 
 - address: https://www.swexpertacademy.com/main/code/problem/problemDetail.do
+
+3752. 가능한 시험 점수 [D4]
+
+- address: https://www.swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWHPkqBqAEsDFAUn
+
+1210. [S/W 문제해결 기본] 2일차 - Ladder1
+
+- address: https://www.swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AV14ABYKADACFAYh
