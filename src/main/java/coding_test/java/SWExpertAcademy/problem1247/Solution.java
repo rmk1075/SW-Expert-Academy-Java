@@ -10,7 +10,6 @@ public class Solution {
 	static int distance;
 	static int[] start;
 	static int[] destination;
-	static int[] visit;
 	static ArrayList<Integer> x;
 	static ArrayList<Integer> y;
 	
@@ -36,34 +35,33 @@ public class Solution {
 			}
 			
 			for(int n = 0; n < N; n++) {
-				visit = new int[N];
+				int[] visit = new int[N];
 				int dis = calculateDistance(x.get(n), start[0], y.get(n), start[1]);
-				dfs(n, dis, 1);
+				dfs(n, dis, 1, visit);
 			}
 			
 			System.out.println("#" + i + " " + distance);
 		}
 	}
 
-	public static void dfs(int i, int dis, int count) {
+	public static void dfs(int i, int dis, int count, int[] visited) {
 		System.out.println(x.get(i) + " " + y.get(i));
 		
-		if(visit[i] == 2) return;
+		if(visited[i] == 1) return;
 		
-		visit[i] = 1;		
+//		visited[i] = 1;		
 		if(count == N) {
 			int ans = dis + calculateDistance(x.get(i), destination[0], y.get(i), destination[1]);
 			if(ans < distance) distance = ans;
-			visit[i] = 1;
 			return ;
 		}
 		
 		for(int j = 0; j < x.size(); j++) {
-			if(visit[j] == 0) {
-				dfs(j, dis+calculateDistance(x.get(i), x.get(j), y.get(i), y.get(j)), count+1);
+			if((visited[j] == 0) && (i != j)) {
+				dfs(j, dis+calculateDistance(x.get(i), x.get(j), y.get(i), y.get(j)), count+1, visited);
 			}
 		}
-		visit[i] = 2;
+		visited[i] = 1;
 		
 		return ;
 	}
