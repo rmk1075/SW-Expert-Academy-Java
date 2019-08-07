@@ -22,8 +22,8 @@ public class Solution {
 			N = sc.nextInt();
 			x = new ArrayList<Integer>();
 			y = new ArrayList<Integer>();
-			start = new int[2];
-			destination = new int[2];
+			start = new int[2]; // office
+			destination = new int[2]; // home
 			
 			start[0] = sc.nextInt();
 			start[1] = sc.nextInt();
@@ -32,7 +32,7 @@ public class Solution {
 			for(int n = 0; n < N; n++) {
 				x.add(sc.nextInt());
 				y.add(sc.nextInt());
-			}
+			} // clients
 			
 			for(int n = 0; n < N; n++) {
 				int[] visit = new int[N];
@@ -45,11 +45,8 @@ public class Solution {
 	}
 
 	public static void dfs(int i, int dis, int count, int[] visited) {
-		System.out.println(x.get(i) + " " + y.get(i));
+		visited[i] = 1;
 		
-		if(visited[i] == 1) return;
-		
-//		visited[i] = 1;		
 		if(count == N) {
 			int ans = dis + calculateDistance(x.get(i), destination[0], y.get(i), destination[1]);
 			if(ans < distance) distance = ans;
@@ -57,11 +54,11 @@ public class Solution {
 		}
 		
 		for(int j = 0; j < x.size(); j++) {
-			if((visited[j] == 0) && (i != j)) {
+			if(visited[j] == 0) {
 				dfs(j, dis+calculateDistance(x.get(i), x.get(j), y.get(i), y.get(j)), count+1, visited);
+				visited[j] = 0;//this line made me fall into distress in last an week. 
 			}
 		}
-		visited[i] = 1;
 		
 		return ;
 	}
