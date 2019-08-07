@@ -45,8 +45,9 @@ public class Solution {
 	}
 
 	public static void dfs(int i, int dis, int count, int[] visited) {
-		visited[i] = 1;
+		if(distance < dis) return;
 		
+		visited[i] = 1;		
 		if(count == N) {
 			int ans = dis + calculateDistance(x.get(i), destination[0], y.get(i), destination[1]);
 			if(ans < distance) distance = ans;
