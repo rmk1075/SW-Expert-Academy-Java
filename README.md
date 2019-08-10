@@ -26,6 +26,18 @@ SWEA problem src code
 
 - address: https://www.swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWHPkqBqAEsDFAUn
 
-1210. [S/W 문제해결 기본] 2일차 - Ladder1
+1210. [S/W 문제해결 기본] 2일차 - Ladder1 [D4]
 
 - address: https://www.swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AV14ABYKADACFAYh
+
+4408. 자기 방으로 돌아가기 [D4]
+
+- address: https://www.swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWNcJ2sapZMDFAV8
+
+6782. 현주가 좋아하는 제곱근 놀이 [D5]
+
+- address: https://www.swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWgqsAlKr9sDFAW0
+
+1247. [S/W 문제해결 응용] 3일차 - 최적 경로 D5 Box에 담기 [D5]
+
+- address: https://www.swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AV15OZ4qAPICFAYD
