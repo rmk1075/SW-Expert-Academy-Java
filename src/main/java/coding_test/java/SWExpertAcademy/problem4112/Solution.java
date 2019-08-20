@@ -28,23 +28,28 @@ public class Solution {
 		int[] locB = new int[2];
 		
 		int c = 1;
-		for(int i = 1; c < 10000; i++) {
+		for(int i = 1; c < 10013; i++) {
+			if(countA ==1 && countB == 1) break;
+			
 			if(a < c && countA == 0) {
-				locA[0] = i;
-				locA[1] = a - c;
+				locA[0] = i-1;
+				locA[1] = a - c + i;
 				countA = 1;
 			}
 			
 			if(b < c && countB == 0) {
-				locB[0] = i;
-				locB[1] = b - c;
+				locB[0] = i-1;
+				locB[1] = b - c + i;
 				countB = 1;
 			}
 			
 			c += i;
 		}
-		System.out.println(locA[0] + " " + locA[1]);
-		System.out.println(locB[0] + " " + locB[1]);
+		
+		count += Math.abs(locA[0] - locB[0]);
+		if(Math.abs(locA[1] - locB[1]) > Math.abs(locA[0] - locB[0])) {
+			count += Math.abs(locA[1] - locB[1]) - Math.abs(locA[0] - locB[0]);
+		}
 		
 		return count;
 	}
