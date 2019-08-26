@@ -28,7 +28,7 @@ public class Solution {
 		int[] locB = new int[2];
 		
 		int c = 1;
-		for(int i = 1; c < 10013; i++) {
+		for(int i = 1; i < 145; i++) {
 			if(countA ==1 && countB == 1) break;
 			
 			if(a < c && countA == 0) {
@@ -46,9 +46,14 @@ public class Solution {
 			c += i;
 		}
 		
-		count += Math.abs(locA[0] - locB[0]);
+		if((locA[0] > locB[0] && locA[1] < locB[1]) || (locA[0] < locB[0] && locA[1] > locB[1])) {
+			count = Math.min(Math.abs(locA[1] - locB[1]), Math.abs(locA[0] - locB[0]));
+		}
+		
 		if(Math.abs(locA[1] - locB[1]) > Math.abs(locA[0] - locB[0])) {
-			count += Math.abs(locA[1] - locB[1]) - Math.abs(locA[0] - locB[0]);
+			count += Math.abs(locA[1] - locB[1]);
+		} else {
+			count += Math.abs(locA[0] - locB[0]);
 		}
 		
 		return count;
