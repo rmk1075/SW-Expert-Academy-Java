@@ -5,8 +5,8 @@ import java.util.Scanner;
 
 public class Solution {
 
-	static int T; // T: test case °³¼ö
-	static int N, M; // N: »ùÇÃ °³¼ö, M: ÀÏÀÇ ÃÑ °³¼ö
+	static int T; // T: test case ê°œìˆ˜
+	static int N, M; // N: ìƒ˜í”Œ ê°œìˆ˜, M: ì¼ì˜ ì´ ê°œìˆ˜
 	static Integer[][] n;
 	static ArrayList<Integer> list;
 	static int[] visit;
@@ -44,7 +44,7 @@ public class Solution {
 					n[x][y] = sc.nextInt();
 					n[y][x] = -(n[x][y]);
 					
-					//ÀÔ·ÂµÈ °ª¿¡ ´ëÇØ¼­ ÀüÃ¼ Çà·Ä¿¡ ¿¬»êÀ» ÁøÇàÇÏµµ·Ï ÇÑ´Ù
+					//ì…ë ¥ëœ ê°’ì— ëŒ€í•´ì„œ ì „ì²´ í–‰ë ¬ì— ì—°ì‚°ì„ ì§„í–‰í•˜ë„ë¡ í•œë‹¤
 					for(int l = 0; l < n.length; l++) {
 						if(n[l][x] != null && n[l][y] == null) {
 							n[l][y] = n[l][x] + n[x][y];
@@ -65,6 +65,8 @@ public class Solution {
 			}
 			System.out.println();
 		}
+		
+		sc.close();
 	}
 	
 	public static Integer find(int a, int b, int[] visit) {
