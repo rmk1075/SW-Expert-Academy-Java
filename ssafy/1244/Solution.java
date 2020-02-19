@@ -1,72 +1,72 @@
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.util.StringTokenizer;
-import java.io.IOException;
+import java.util.Arrays;
+import java.util.Scanner;
 
 public class Solution {
-    static int T, count, maxVal;
-    static int[] nums;
+    static int T, C, MAX_VAL, maxVal;
+    static char[] nums;
     static boolean[][] visited;
-    public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        StringBuilder sb = new StringBuilder();
+        
+        T = sc.nextInt();
+        for(int t = 1; t <= T; t++) {
+            maxVal = Integer.MIN_VALUE;
+            nums = sc.next().toCharArray();
+            C = sc.nextInt();
 
-        T = Integer.parseInt(br.readLine());
-        for(int t = 1; t < T+1; t++) {
-            StringTokenizer st = new StringTokenizer(br.readLine());
-
-            String num = st.nextToken();
-            count = Integer.parseInt(st.nextToken());
-            visited = new boolean[1000000][count + 1];
-
-            nums = new int[num.length()];
-            for(int i = 0; i < num.length(); i++) {
-                nums[i] = Integer.parseInt(num.substring(i, i+1));
-            }
-
-            maxVal = -1;
-
+            char[] temp = new char[nums.length];
             for(int i = 0; i < nums.length; i++) {
-                find(i, 0, nums.clone());
+                temp[i] = nums[i];
             }
-
-            System.out.println("#" + t + " " + maxVal);
+            Arrays.sort(temp);
+            int c = 1, tmp = 0;
+            for(int i = 0; i < temp.length; i++) {
+                tmp += (temp[i]-'0') * c;
+                c *= 10;
+            }
+            MAX_VAL = tmp;
+            
+            visited = new boolean[MAX_VAL+1][C];
+            find(0);
+            sb.append("#" + t + " " + maxVal+ "\n");
         }
+        sc.close();
+        System.out.println(sb.toString());
     }
 
-    public static void find(int idx, int cnt, int[] stream) {
-
-        if(count == cnt) {
-            int val = 0;
-            for (int i = 0; i < stream.length; i++) {
-                val += stream[i] * Math.pow(10, stream.length - 1 - i);
-            }
-
-            maxVal = Math.max(maxVal, val);
-            return ;
+    public static boolean find(int count) {
+        int num = toInt(nums);
+        if(count == C) {
+            maxVal = Math.max(maxVal, num);
+            if(maxVal == MAX_VAL) return true;
+            return false;
         }
 
-        for(int i = 0; i < stream.length; i++) {
-            for(int j = 0; j < stream.length; j++) {
-                if(i == j) continue;
-
-                int temp = stream[i];
-                stream[i] = stream[j];
-                stream[j] = temp;
-
-                int val = 0;
-                for (int k = 0; k < stream.length; k++) {
-                    val += stream[k] * Math.pow(10, stream.length - 1 - k);
-                }
-
-                if(!visited[val][cnt]) {
-                    find(i, cnt + 1, stream.clone());
-                    visited[val][cnt] = true;
-                }
-                
-                temp = stream[i];
-                stream[i] = stream[j];
-                stream[j] = temp;
+        if(visited[num][count]) return false;
+        visited[num][count] = true;
+                for(int i = 0; i < nums.length; i++) {
+            for(int j = i+1; j < nums.length; j++) {
+                swap(i, j);
+                if(find(count+1)) return true;
+                swap(i, j);
             }
         }
+        return false;
+    }
+
+    public static void swap(int x, int y) {
+        char temp = nums[x];
+        nums[x] = nums[y];
+        nums[y] = temp;
+    }
+
+    public static int toInt(char[] arr) {
+        int result = 0, temp = 1;
+        for(int i = 0; i < arr.length; i++) {
+            result += temp*(arr[arr.length-1-i]-'0');
+            temp *= 10;
+        }
+        return result;
     }
 }
