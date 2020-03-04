@@ -32,8 +32,8 @@ public class Solution {
                 nodes.clear();
                 nodes.offer(new Node(n, 0));
 
-                boolean[] visited = new boolean[N];
-                visited[n] = true;
+                int visited = 0;
+                visited |= (1 << n);
 
                 while(!nodes.isEmpty()) {
                     Node node = nodes.poll();
@@ -42,8 +42,8 @@ public class Solution {
                     if(graph[node.idx][n] != 0) minLength = Math.min(minLength, node.length + graph[node.idx][n]);
 
                     for(int i = 0; i < N; i++) {
-                        if(graph[node.idx][i] != 0 && !visited[i]) {
-                            visited[i] = true;
+                        if(graph[node.idx][i] != 0 && ((visited & (1 << i)) == 0)) {
+                            visited |= (1 << i);
                             nodes.offer(new Node(i, node.length + graph[node.idx][i]));
                         }
                     }
