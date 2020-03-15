@@ -66,23 +66,12 @@ public class Solution {
     public static void count(char[] line) {
         for (char ch : line) {
             switch (ch) {
-                case '(':
-                    R2++;
-                    break;
-                case ')':
-                    R2--;
-                    break;
-                case '{':
-                    C2++;
-                    break;
-                case '}':
-                    C2--;
-                    break;
-                case '[':
-                    S2++;
-                    break;
-                case ']':
-                    S2--;
+                case '(': R2++; break;
+                case ')': R2--; break;
+                case '{': C2++; break;
+                case '}': C2--; break;
+                case '[': S2++; break;
+                case ']': S2--;
             }
         }
     }
