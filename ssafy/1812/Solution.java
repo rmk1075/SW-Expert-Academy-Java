@@ -20,31 +20,31 @@ public class Solution {
             N = Integer.parseInt(st.nextToken());
             M = Integer.parseInt(st.nextToken());
 
-            Integer[] len = new Integer[N];
+            PriorityQueue<Integer> len = new PriorityQueue<>(Collections.reverseOrder());
             st = new StringTokenizer(br.readLine());
-            for(int i = 0; i < N; i++) len[i] = (int)Math.pow(2, Integer.parseInt(st.nextToken()));
-            Arrays.sort(len, Collections.reverseOrder());
+            for(int i = 0; i < N; i++) len.offer((int)Math.pow(2, Integer.parseInt(st.nextToken())));
 
             Queue<Tile> rest = new LinkedList<>();
             int cnt = 0;
-            for(int i = 0; i < N; i++) {
+            while(!len.isEmpty()) {
+                int tile = len.poll();
                 int size = rest.size();
                 while(0 < size--) {
                     Tile r = rest.poll();
-                    if(len[i] <= r.w && len[i] <= r.h) {
-                        if(len[i] < r.w) rest.offer(new Tile(r.w - len[i], len[i]));
-                        if(len[i] < r.h) rest.offer(new Tile(r.w, r.h - len[i]));
+                    if(tile <= r.w && tile <= r.h) {
+                        if(tile < r.w) rest.offer(new Tile(r.w - tile, tile));
+                        if(tile < r.h) rest.offer(new Tile(r.w, r.h - tile));
 
-                        len[i] = 0;
+                        tile = 0;
                         break;
                     } else rest.offer(r);
                 }
 
-                if(len[i] == 0) continue;
+                if(tile == 0) continue;
                 cnt++;
-                if(len[i] == M) continue;
-                rest.offer(new Tile(M - len[i], len[i]));
-                rest.offer(new Tile(M, M - len[i]));
+                if(tile == M) continue;
+                rest.offer(new Tile(M - tile, tile));
+                rest.offer(new Tile(M, M - tile));
             }
 
             sb.append("#" + t + " " + cnt + "\n");
