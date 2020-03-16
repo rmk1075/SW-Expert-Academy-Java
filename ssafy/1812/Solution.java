@@ -24,28 +24,51 @@ public class Solution {
             st = new StringTokenizer(br.readLine());
             for(int i = 0; i < N; i++) len.offer((int)Math.pow(2, Integer.parseInt(st.nextToken())));
 
-            Queue<Tile> rest = new LinkedList<>();
+            ArrayList<Tile> rest = new ArrayList<>();
             int cnt = 0;
             while(!len.isEmpty()) {
                 int tile = len.poll();
                 int size = rest.size();
-                while(0 < size--) {
-                    Tile r = rest.poll();
+                for(int i = 0; i < size; i++) {
+                    Tile r = rest.get(i);
                     if(tile <= r.w && tile <= r.h) {
-                        if(tile < r.w) rest.offer(new Tile(r.w - tile, tile));
-                        if(tile < r.h) rest.offer(new Tile(r.w, r.h - tile));
+                        rest.remove(r);
+                        if(tile < r.w) rest.add(new Tile(r.w - tile, tile));
+                        if(tile < r.h) rest.add(new Tile(r.w, r.h - tile));
 
                         tile = 0;
                         break;
-                    } else rest.offer(r);
+                    }
                 }
 
                 if(tile == 0) continue;
                 cnt++;
                 if(tile == M) continue;
-                rest.offer(new Tile(M - tile, tile));
-                rest.offer(new Tile(M, M - tile));
+                rest.add(new Tile(M - tile, tile));
+                rest.add(new Tile(M, M - tile));
             }
+            // Queue<Tile> rest = new LinkedList<>();
+            // int cnt = 0;
+            // while(!len.isEmpty()) {
+            //     int tile = len.poll();
+            //     int size = rest.size();
+            //     while(0 < size--) {
+            //         Tile r = rest.poll();
+            //         if(tile <= r.w && tile <= r.h) {
+            //             if(tile < r.w) rest.offer(new Tile(r.w - tile, tile));
+            //             if(tile < r.h) rest.offer(new Tile(r.w, r.h - tile));
+
+            //             tile = 0;
+            //             break;
+            //         } else rest.offer(r);
+            //     }
+
+            //     if(tile == 0) continue;
+            //     cnt++;
+            //     if(tile == M) continue;
+            //     rest.offer(new Tile(M - tile, tile));
+            //     rest.offer(new Tile(M, M - tile));
+            // }
 
             sb.append("#" + t + " " + cnt + "\n");
         }
