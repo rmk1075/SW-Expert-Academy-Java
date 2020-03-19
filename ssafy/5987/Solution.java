@@ -1,7 +1,6 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.StringTokenizer;
 
@@ -26,13 +25,13 @@ public class Solution {
 
             mem = new long[1 << N];
             Arrays.fill(mem, -1);
+            mem[(1 << N) - 1] = 1;
             sb.append("#" + t + " " + find(0, 0) + "\n");
         }
         System.out.println(sb);
     }
 
     public static long find(int order, int cnt) {
-        if(order == ((1 << N) - 1)) return 1;
         if(mem[order] != -1) return mem[order];
 
         mem[order] = 0;
