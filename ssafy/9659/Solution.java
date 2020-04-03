@@ -4,7 +4,7 @@ import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
 public class Solution {
-    static int T, N, MOD = 998244353, arr[][];
+    static int T, N, M, MOD = 998244353, arr[][];
     static long[] dp;
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -15,16 +15,17 @@ public class Solution {
             arr = new int[N+1][3];
             dp = new long[N+1];
 
+            StringTokenizer st;
             for(int i = 2; i <= N; i++) {
-                StringTokenizer st = new StringTokenizer(br.readLine());
+                st = new StringTokenizer(br.readLine());
                 arr[i][0] = Integer.parseInt(st.nextToken());
                 arr[i][1] = Integer.parseInt(st.nextToken());
                 arr[i][2] = Integer.parseInt(st.nextToken());
             }
 
             sb.append("#" + t);
-            int M = Integer.parseInt(br.readLine());
-            StringTokenizer st = new StringTokenizer(br.readLine());
+            M = Integer.parseInt(br.readLine());
+            st = new StringTokenizer(br.readLine());
             for(int i = 0; i < M; i++) {
                 dp[0] = 1;
                 dp[1] = Integer.parseInt(st.nextToken());
