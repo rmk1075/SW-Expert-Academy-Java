@@ -39,7 +39,7 @@ public class Solution {
             }
 
             int ans = 0;
-            while(1 < atoms.size()) {
+            while(!atoms.isEmpty()) {
                 Atom atom = atoms.poll();
                 int x = atom.x, y = atom.y;
                 if(atom.k < map[y][x]) {
