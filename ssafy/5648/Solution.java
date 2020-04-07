@@ -48,12 +48,14 @@ public class Solution {
                     continue;
                 }
 
-                map[y][x] -= atom.k;
+                map[y][x] = 0;
                 y += dy[atom.d];
                 x += dx[atom.d];
                 if(x < 0 || y < 0 || x == 4001 || y == 4001) continue;
 
-                if(map[y][x] == 0) atoms.offer(new Atom(y, x, atom.d, atom.k));
+                atom.x = x;
+                atom.y = y;
+                if(map[y][x] == 0) atoms.offer(atom);
                 map[y][x] += atom.k;
             }
 
