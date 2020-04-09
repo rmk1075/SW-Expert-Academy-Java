@@ -42,23 +42,19 @@ public class Solution {
                 for(int j = i+1; j < N; j++) pq.offer(new Edge(i, j, Math.pow(map[i][0] - map[j][0], 2) + Math.pow(map[i][1] - map[j][1], 2)));
             }
 
+            int cnt = 0;
             double ans = 0;
-            while(!pq.isEmpty() && mst()) {
+            while(!pq.isEmpty() && cnt < N-1) {
                 Edge edge = pq.poll();
 
                 if(check(edge.a) == check(edge.b)) continue;
                 parent[check(edge.b)] = check(edge.a);
                 ans += edge.len;
+                cnt++;
             }
             sb.append("#" + t + " " + Math.round(ans * E) +"\n");
         }
         System.out.println(sb);
-    }
-
-    public static boolean mst() {
-        int p = parent[0];
-        for(int i = 1; i < N; i++) if(parent[i] != p) return true;
-        return false;
     }
 
     public static int check(int idx) {
