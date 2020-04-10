@@ -4,7 +4,7 @@ import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
 public class Solution {
-    static int T, D, W, K, ans, map[][], tMap[][];
+    static int T, D, W, K, ans, map[][] = new int[13][20], tMap[][] = new int[13][20];
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringBuilder sb = new StringBuilder();
@@ -15,8 +15,6 @@ public class Solution {
             D = Integer.parseInt(st.nextToken());
             W = Integer.parseInt(st.nextToken());
             K =Integer.parseInt(st.nextToken());
-            map = new int[D][W];
-            tMap = new int[D][W];
             for(int i = 0; i < D; i++) {
                 st = new StringTokenizer(br.readLine());
                 for(int j = 0; j < W; j++) map[i][j] = tMap[i][j] = Integer.parseInt(st.nextToken());
@@ -27,24 +25,19 @@ public class Solution {
                 continue;
             }
 
-            int cnt;
-            boolean isOk = false;
+            int cnt = 1;
             for(int i = 0; i < W; i++) {
-                isOk = false;
                 cnt = 1;
                 for(int j = 1; j < D; j++) {
                     if(map[j-1][i] == map[j][i]) cnt++;
                     else cnt = 1;
                     
-                    if(cnt == K) {
-                        isOk = true;
-                        break;
-                    }
+                    if(cnt == K) break;
                 }
-                if(!isOk) break;
+                if(cnt != K) break;
             }
 
-            if(isOk) {
+            if(cnt == K) {
                 sb.append("#" + t + " 0\n");
                 continue;
             }
@@ -65,23 +58,19 @@ public class Solution {
         for(int val = 0; val < 2; val++) {
             if(val == 1) for(int j = 0; j < W; j++) tMap[d][j] = 1;
 
-            boolean isOk = false;
+            int cnt = 1;
             for(int i = 0; i < W; i++) {
-                isOk = false;
-                int cnt = 1;
+                cnt = 1;
                 for(int j = 1; j < D; j++) {
                     if(tMap[j-1][i] == tMap[j][i]) cnt++;
                     else cnt = 1;
     
-                    if(cnt == K) {
-                        isOk = true;
-                        break;
-                    }
+                    if(cnt == K) break;
                 }
-                if(!isOk) break;
+                if(cnt != K) break;
             }
     
-            if(isOk) {
+            if(cnt == K) {
                 ans = count;
                 return ;
             }
