@@ -17,19 +17,23 @@ class Virus implements Comparable<Virus> {
 
     @Override
     public int compareTo(Virus o) {
+        if(this.death && o.death) return 0;
+        if(this.death) return 1;
+        if(o.death) return -1;
         return this.num - o.num;
     }
 }
 
 public class Solution {
-    static int T, N, M, K, map[][]; // N: num of cells, M: time, K: num of viruses
-    static int[] dx = {-1, 1, 0, 0}, dy = {0, 0, -1, 1};
+    static int T, N, M, K, map[][];
+    static int[] dx = { -1, 1, 0, 0 }, dy = { 0, 0, -1, 1 };
     static Virus[] viruses;
+
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringBuilder sb = new StringBuilder();
         T = Integer.parseInt(br.readLine());
-        for(int t = 1; t <= T; t++) {
+        for (int t = 1; t <= T; t++) {
             StringTokenizer st = new StringTokenizer(br.readLine());
             N = Integer.parseInt(st.nextToken());
             M = Integer.parseInt(st.nextToken());
@@ -37,30 +41,30 @@ public class Solution {
             map = new int[N][N];
             viruses = new Virus[K];
 
-            for(int i = 0; i < N; i++) Arrays.fill(map[i], -1);
-            for(int i = 0; i < K; i++) {
+            for (int i = 0; i < N; i++) Arrays.fill(map[i], -1);
+            for (int i = 0; i < K; i++) {
                 st = new StringTokenizer(br.readLine());
                 int x = Integer.parseInt(st.nextToken()), y = Integer.parseInt(st.nextToken()), num = Integer.parseInt(st.nextToken());
-                viruses[i] = new Virus(x, y, num, Integer.parseInt(st.nextToken())-1);
+                viruses[i] = new Virus(x, y, num, Integer.parseInt(st.nextToken()) - 1);
             }
             Arrays.sort(viruses);
 
             int x, y, d, cnt = 0;
-            while(0 < M-- && cnt < K) {
-                for(int i = 0; i < K; i++) {
-                    if(viruses[i].death) continue;
+            while (0 < M-- && cnt < K) {
+                for (int i = 0; i < K; i++) {
+                    if (viruses[i].death) break;
 
                     d = viruses[i].d;
                     x = viruses[i].x + dx[d];
                     y = viruses[i].y + dy[d];
-                    if(x == 0 || y == 0 || x == N-1 || y == N-1) {
+                    if (x == 0 || y == 0 || x == N - 1 || y == N - 1) {
                         viruses[i].num /= 2;
-                        viruses[i].d = (d % 2 == 0) ? d+1 : d-1;
+                        viruses[i].d = (d % 2 == 0) ? d + 1 : d - 1;
                     }
 
                     viruses[i].x = x;
                     viruses[i].y = y;
-                    if(map[x][y] != -1) {
+                    if (map[x][y] != -1) {
                         viruses[i].num += viruses[map[x][y]].num;
                         viruses[map[x][y]].death = true;
                         cnt++;
@@ -68,13 +72,16 @@ public class Solution {
 
                     map[x][y] = i;
                 }
-                for(int i = 0; i < N; i++) Arrays.fill(map[i], -1);
                 Arrays.sort(viruses);
+                for (int i = 0; i < K; i++) {
+                    if (viruses[i].death) break;
+                    map[viruses[i].x][viruses[i].y] = -1;
+                }
             }
-            
+
             int ans = 0;
-            for(int i = 0; i < K; i++) {
-                if(viruses[i].death) continue;
+            for (int i = 0; i < K; i++) {
+                if (viruses[i].death) break;
                 ans += viruses[i].num;
             }
             sb.append("#" + t + " " + ans + "\n");
