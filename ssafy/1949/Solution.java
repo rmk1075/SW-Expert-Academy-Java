@@ -58,9 +58,9 @@ public class Solution {
     }
 
     public static void dfs(Location cur, int count) {
-        ans = Math.max(ans, count);
-
+        
         int x, y;
+        boolean bottom = true;
         for(int d = 0; d < 4; d++) {
             x = cur.x + dx[d];
             y = cur.y + dy[d];
@@ -68,13 +68,17 @@ public class Solution {
             if(map[x][y] < cur.h) {
                 visited[x] |= (1 << y);
                 dfs(new Location(x, y, map[x][y], cur.k), count + 1);
+                bottom = false;
                 visited[x] &= ~(1 << y);
             } else if(map[x][y] - K < cur.h) {
                 if(cur.k) continue;
                 visited[x] |= (1 << y);
                 dfs(new Location(x, y, cur.h-1, true), count+1);
+                bottom = false;
                 visited[x] &= ~(1 << y);
             }
         }
+
+        if(bottom) ans = Math.max(ans, count);
     }
 }
