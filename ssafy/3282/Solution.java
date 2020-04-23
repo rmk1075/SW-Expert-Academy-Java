@@ -1,8 +1,6 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Arrays;
-import java.util.Comparator;
 import java.util.StringTokenizer;
 
 public class Solution {
@@ -27,7 +25,7 @@ public class Solution {
             }
 
             for(int i = 1; i <= N; i++) {
-                for(int j = 0; j <= K; j++) {
+                for(int j = 1; j <= K; j++) {
                     if(j < arr[i][0]) bag[i][j] = bag[i-1][j];
                     else bag[i][j] = Math.max(bag[i-1][j], bag[i-1][j-arr[i][0]] + arr[i][1]);
                 }
